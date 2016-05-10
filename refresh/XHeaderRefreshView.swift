@@ -15,7 +15,7 @@ class XHeaderRefreshView: UIView {
     var height:CGFloat = 80.0
     var block:RefreshBlock?
     var state:XRefreshState = .Normal
-    var  loaded = false
+    var loaded = false
     
     let downIcon:UIImageView=UIImageView()
     let msgLabel:UILabel=UILabel()
@@ -23,7 +23,6 @@ class XHeaderRefreshView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         
     }
     
@@ -81,7 +80,6 @@ class XHeaderRefreshView: UIView {
 
         
     }
-    
     
     override func removeFromSuperview() {
         
@@ -178,6 +176,7 @@ class XHeaderRefreshView: UIView {
     
     func beginRefresh()
     {
+        XRefreshHeaderProgressBlock?(self,1.0)
         if(self.window != nil)
         {
             self.setState(.Refreshing)

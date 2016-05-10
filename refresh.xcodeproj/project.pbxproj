@@ -17,7 +17,6 @@
 		173E980D1C48A55A003E675D /* XFooterRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173E980C1C48A55A003E675D /* XFooterRefreshView.swift */; };
 		173E98111C48A5AF003E675D /* string.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173E98101C48A5AF003E675D /* string.swift */; };
 		173E98131C48A5D1003E675D /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173E98121C48A5D1003E675D /* NSDate.swift */; };
-		173E98151C48A628003E675D /* downf.png in Resources */ = {isa = PBXBuildFile; fileRef = 173E98141C48A628003E675D /* downf.png */; };
 		1746129E1CE1791800DDEC31 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 1746129D1CE1791800DDEC31 /* down.png */; };
 		1749CEF01CD30A9F00F11301 /* VC1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1749CEEF1CD30A9F00F11301 /* VC1.swift */; };
 		17745FB51CD9EE1B0040F4A8 /* VC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17745FB41CD9EE1B0040F4A8 /* VC2.swift */; };
@@ -50,7 +49,6 @@
 		173E980C1C48A55A003E675D /* XFooterRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XFooterRefreshView.swift; sourceTree = "<group>"; };
 		173E98101C48A5AF003E675D /* string.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = string.swift; sourceTree = "<group>"; };
 		173E98121C48A5D1003E675D /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
-		173E98141C48A628003E675D /* downf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downf.png; sourceTree = "<group>"; };
 		1746129D1CE1791800DDEC31 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
 		1749CEEF1CD30A9F00F11301 /* VC1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VC1.swift; sourceTree = "<group>"; };
 		17745FB41CD9EE1B0040F4A8 /* VC2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VC2.swift; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				17745FBA1CD9F4B90040F4A8 /* Source */,
-				173E98141C48A628003E675D /* downf.png */,
 				1746129D1CE1791800DDEC31 /* down.png */,
 				17745FB61CD9F2230040F4A8 /* loading.gif */,
 				173E98121C48A5D1003E675D /* NSDate.swift */,
@@ -204,7 +201,6 @@
 				173E98011C48A3D7003E675D /* LaunchScreen.storyboard in Resources */,
 				173E97FE1C48A3D7003E675D /* Assets.xcassets in Resources */,
 				17745FB71CD9F2230040F4A8 /* loading.gif in Resources */,
-				173E98151C48A628003E675D /* downf.png in Resources */,
 				173E97FC1C48A3D7003E675D /* Main.storyboard in Resources */,
 				1746129E1CE1791800DDEC31 /* down.png in Resources */,
 			);

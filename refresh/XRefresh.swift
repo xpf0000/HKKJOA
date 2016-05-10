@@ -54,36 +54,24 @@ func XRefreshConfig(headerProgress:RefreshProgressBlock?,headerBegin:RefreshView
 extension UIScrollView
 {
 
-    func headRefreshHide()
+    func hideHeadRefresh()
     {
-        if(self.headRefresh != nil)
-        {
-            self.headRefresh!.hide()
-        }
+        self.headRefresh?.hide()
     }
     
-    func headRefreshShow()
+    func showHeadRefresh()
     {
-        if(self.headRefresh != nil)
-        {
-            self.headRefresh!.show()
-        }
+        self.headRefresh?.show()
     }
     
-    func footRefreshHide()
+    func hideFootRefresh()
     {
-        if(self.footRefresh != nil)
-        {
-            self.footRefresh!.hide()
-        }
+        self.footRefresh?.hide()
     }
     
-    func footRefreshShow()
+    func showFootRefresh()
     {
-        if(self.footRefresh != nil)
-        {
-            self.footRefresh!.show()
-        }
+        self.footRefresh?.show()
     }
     
     func setHeaderRefresh(block:RefreshBlock)
@@ -127,19 +115,12 @@ extension UIScrollView
     
     func beginHeaderRefresh()
     {
-        if(self.headRefresh != nil)
-        {
-            self.headRefresh!.beginRefresh()
-        }
-       
+        self.headRefresh?.beginRefresh()
     }
     
     func endHeaderRefresh()
     {
-        if(self.headRefresh != nil)
-        {
-            self.headRefresh!.endRefresh()
-        }
+        self.headRefresh?.endRefresh()
     }
     
     
@@ -153,33 +134,19 @@ extension UIScrollView
     
     func beginFooterRefresh()
     {
-        if(self.footRefresh != nil)
-        {
-           self.footRefresh!.beginRefresh()
-        }
-        
+        self.footRefresh?.beginRefresh()
     }
     
     func endFooterRefresh()
     {
-        if(self.footRefresh != nil)
-        {
-            self.footRefresh!.endRefresh()
-        }
-        
+        self.footRefresh?.endRefresh()
     }
     
-    func LoadedAllDate()
+    func LoadedAll()
     {
-        if(self.footRefresh != nil)
-        {
-            self.footRefresh!.end = true
-            self.footRefresh!.setState(.End)
-            
-        }
-        
+        self.footRefresh?.end = true
+        self.footRefresh?.setState(.End)
     }
-    
     
 }
 

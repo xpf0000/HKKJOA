@@ -57,7 +57,7 @@ class VC1: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
         }
         
-        self.table.LoadedAllDate()
+        table.LoadedAll()
         
     }
     

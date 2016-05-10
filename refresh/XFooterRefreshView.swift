@@ -116,8 +116,6 @@ class XFooterRefreshView: UIView {
             
             if(self.state == .End || !XRefreshEnable || self.hidden)
             {
-                print("XRefreshEnable is false")
-                
                 return
             }
             
@@ -153,6 +151,7 @@ class XFooterRefreshView: UIView {
     
     func beginRefresh()
     {
+        XRefreshFooterProgressBlock?(self,1.0)
         if(self.window != nil)
         {
             self.setState(.Refreshing)
@@ -249,11 +248,11 @@ class XFooterRefreshView: UIView {
                 
                 var y:CGFloat = self.scrollView!.contentSize.height-self.scrollView!.frame.height+self.height
                 
-                if y < 0 && y > -64
+                if y < 0 && y > -self.height
                 {
-                    y = 64 + y
+                    y = self.height + y
                 }
-                else if y < -64
+                else if y < -self.height
                 {
                     y = self.height
                 }
