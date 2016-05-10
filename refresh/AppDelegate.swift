@@ -15,7 +15,132 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let data = NSData(contentsOfFile: "loading.gif".path)
+        let img = UIImageView(frame: CGRectZero)
+        let g = XImageGifPlayer(hash: "loading.gif".hash, data: data!, img: img)
+        let t = Double(100.0) / Double(60.0)
+        
+        XRefreshConfig({ (view, p) in
+            
+            let n = g.gif.count - Int(ceil(p*100.0 / t)) % g.gif.count
+            
+            if view.subviews.count == 0
+            {
+                img.image = UIImage(contentsOfFile: "loading.gif".path)
+                img.contentMode = .Center
+                img.layer.masksToBounds = true
+                view.addSubview(img)
+                img.tag = 20
+                img.snp_makeConstraints(closure: { (make) in
+                    make.center.equalTo(view)
+                    make.width.equalTo(view.snp_height)
+                    make.height.equalTo(img.snp_width)
+                })
+                
+                g.ind = n-1
+                g.play()
+                
+            }
+            else
+            {
+                if p < 1.0
+                {
+                    g.ind = n-1
+                    g.play()
+                }
+            }
+            ///////
+            }, headerBegin: { (view) in
+                g.ind = 0
+                g.rePlay()
+             ////
+            }, headerEnd: { (view) in
+                g.timer?.invalidate()
+                g.timer = nil
+               ///
+            }, footerProgress: nil, footerBegin: nil, footerEnd: nil, noMore: nil)
+        
+        
+        
+        
+//        XRefreshHeaderProgressBlock = {
+//        (view,p)->Void in
+//            
+//            let n = g.gif.count - Int(ceil(p*100.0 / t)) % g.gif.count
+//            
+//            if view.subviews.count == 0
+//            {
+//                img.image = UIImage(contentsOfFile: "loading.gif".path)
+//                img.contentMode = .Center
+//                img.layer.masksToBounds = true
+//                view.addSubview(img)
+//                img.tag = 20
+//                img.snp_makeConstraints(closure: { (make) in
+//                    make.center.equalTo(view)
+//                    make.width.equalTo(view.snp_height)
+//                    make.height.equalTo(img.snp_width)
+//                })
+//
+//                g.ind = n-1
+//                g.play()
+//                
+//            }
+//            else
+//            {
+//                if p < 1.0
+//                {
+//                    g.ind = n-1
+//                    g.play()
+//                }
+//            }
+//            
+//        }
+//        
+//        XRefreshHeaderBeginBlock = {
+//            (view)->Void in
+//            
+//            g.ind = 0
+//            g.rePlay()
+//            
+//        }
+//        
+//        XRefreshHeaderEndBlock = {
+//            (view)->Void in
+//            
+//            g.timer?.invalidate()
+//            g.timer = nil
+//            
+//        }
+
+//        XRefreshFooterProgressBlock = {
+//            (view,p)->Void in
+//            
+//            print("Footer view count: \(view.subviews.count) | p: \(p)")
+//            
+//        }
+        
+//        XRefreshFooterBeginBlock = {
+//            (view)->Void in
+//            
+//           print("Footer refresh begin !!!!")
+//            
+//        }
+//        
+//        XRefreshFooterEndBlock = {
+//            (view)->Void in
+//            
+//            print("Footer refresh end !!!!")
+//            
+//        }
+//        
+//        XRefreshFooterNoMoreBlock = {
+//            (view)->Void in
+//            
+//            print("Footer refresh NoMore !!!!")
+//            
+//        }
+
         return true
     }
 
