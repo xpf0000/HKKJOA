@@ -50,15 +50,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     g.play()
                 }
             }
-            ///////
+            //-------------------//
             }, headerBegin: { (view) in
                 g.ind = 0
                 g.rePlay()
-             ////
+            //-------------------//
             }, headerEnd: { (view) in
                 g.timer?.invalidate()
                 g.timer = nil
-               ///
+            //-------------------//
             }, footerProgress: nil, footerBegin: nil, footerEnd: nil, noMore: nil)
         
         
