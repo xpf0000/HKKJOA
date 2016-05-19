@@ -66,7 +66,7 @@
   
   table.LoadedAll()
   
-  8. 实现自定义加载过程
+  8. 实现自定义加载过程(可选 用到就调用这个方法)
   
   XRefreshConfig(headerProgress:RefreshProgressBlock?,headerBegin:RefreshViewBlock?,headerEnd:RefreshViewBlock?,footerProgress:RefreshProgressBlock?,footerBegin:RefreshViewBlock?,footerEnd:RefreshViewBlock?,noMore:RefreshViewBlock?)
   
