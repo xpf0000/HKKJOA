@@ -71,7 +71,7 @@ class XFooterRefreshView: UIView {
         }
         
         msgLabel.text="上拉加载更多"
-        msgLabel.textColor="33475f".color
+        msgLabel.textColor=UIColor(red: 51.0/255.0, green: 71.0/255.0, blue: 95.0/255.0, alpha: 1.0)
         msgLabel.textAlignment=NSTextAlignment.Center
         msgLabel.font=UIFont.boldSystemFontOfSize(15)
         
@@ -82,15 +82,23 @@ class XFooterRefreshView: UIView {
         
         self.addSubview(activity)
         
-        msgLabel.snp_makeConstraints { (make) in
-            make.center.equalTo(self)
-        }
+        msgLabel.translatesAutoresizingMaskIntoConstraints=false
+        activity.translatesAutoresizingMaskIntoConstraints=false
         
-        activity.snp_makeConstraints { (make) in
-            make.centerY.equalTo(self)
-            make.trailing.equalTo(msgLabel.snp_leading).offset(-15.0)
-        }
-  
+        
+        let cx = NSLayoutConstraint(item: msgLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0)
+        
+        let cy = NSLayoutConstraint(item: msgLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0)
+        
+        self.addConstraints([cx,cy])
+        
+        let cy1 = NSLayoutConstraint(item: activity, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0)
+        
+        let tr = NSLayoutConstraint(item: activity, attribute: .Trailing, relatedBy: .Equal, toItem: msgLabel, attribute: .Leading, multiplier: 1.0, constant: -15.0)
+        
+        self.addConstraints([cy1,tr])
+        
+        
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -122,7 +130,7 @@ class XFooterRefreshView: UIView {
             let y:CGFloat = scrollView!.contentOffset.y
             var sizeY:CGFloat = scrollView!.contentSize.height-scrollView!.frame.height
             sizeY = sizeY < 0 ? 0 : sizeY
- 
+            
             if y <= 0
             {
                 return
@@ -221,7 +229,7 @@ class XFooterRefreshView: UIView {
                     XRefreshEnable = true
                     
                 })
-   
+                
             }
             else
             {
@@ -240,10 +248,10 @@ class XFooterRefreshView: UIView {
             self.activity.hidden = false
             self.activity.alpha=1.0
             self.activity.startAnimating()
-
+            
             UIView.animateWithDuration(0.25, animations: { () -> Void in
                 
-
+                
                 self.scrollView!.contentInset.bottom=self.height
                 
                 var y:CGFloat = self.scrollView!.contentSize.height-self.scrollView!.frame.height+self.height

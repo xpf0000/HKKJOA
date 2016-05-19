@@ -123,7 +123,6 @@ extension UIScrollView
         self.headRefresh?.endRefresh()
     }
     
-    
     func setFooterRefresh(block:RefreshBlock)
     {
         let footerRefreshView:XFooterRefreshView=XFooterRefreshView(frame: CGRectMake(0, 0, self.frame.width, 0))

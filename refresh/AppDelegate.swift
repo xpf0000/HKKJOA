@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 img.layer.masksToBounds = true
                 view.addSubview(img)
                 img.tag = 20
+                
                 img.snp_makeConstraints(closure: { (make) in
                     make.center.equalTo(view)
                     make.width.equalTo(view.snp_height)
