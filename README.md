@@ -3,6 +3,8 @@
 一.说明: 
 
   swift版适用于scrollView的刷新类库 借鉴参考了MJRefresh的处理思路 并扩展出进度控制的方法 对于一些下拉刷新展示的GIF动画,可以做到进度控制
+  
+  ![image](https://github.com/xpf0000/XRefresh/blob/master/refresh/Refresh.gif)
 
 二. 文件说明:
 
@@ -19,12 +21,6 @@
   3. XFooterRefreshView 
 
   上拉加载
-
-其余 
-
-  Source: snapkit类库
-
-  剩下的都是一些方便使用的扩展
 
 三. 使用说明 
 
@@ -68,9 +64,25 @@
   
   8. 实现自定义加载过程(可选 用到就调用这个方法)
   
-  XRefreshConfig(headerProgress:RefreshProgressBlock?,headerBegin:RefreshViewBlock?,headerEnd:RefreshViewBlock?,footerProgress:RefreshProgressBlock?,footerBegin:RefreshViewBlock?,footerEnd:RefreshViewBlock?,noMore:RefreshViewBlock?)
+    XRefreshConfig(
+
+    headerProgress:RefreshProgressBlock?          ///下拉刷新进度
+
+    ,headerBegin:RefreshViewBlock?                ///下拉刷新开始
   
-  用到哪个实现哪个 其余传nil
+    ,headerEnd:RefreshViewBlock?                  ///下拉刷新结束
+
+    ,footerProgress:RefreshProgressBlock?         ///上拉加载进度
+
+    ,footerBegin:RefreshViewBlock?                ///上拉加载开始
+
+    ,footerEnd:RefreshViewBlock?                  ///上拉加载结束
+
+    ,noMore:RefreshViewBlock?                     ///数据全部加载完
+
+    )
   
-  自己摸索写的 有不完善的地方大家多多交流 QQ:250881478
+    用到哪个实现哪个 其余传nil
+  
+    自己摸索写的 有不完善的地方大家多多交流 QQ:250881478
   
