@@ -41,14 +41,14 @@ var XRefreshEnable = true
 
 func XRefreshConfig(headerProgress:RefreshProgressBlock?,headerBegin:RefreshViewBlock?,headerEnd:RefreshViewBlock?,footerProgress:RefreshProgressBlock?,footerBegin:RefreshViewBlock?,footerEnd:RefreshViewBlock?,noMore:RefreshViewBlock?)
 {
-    XRefreshHeaderProgressBlock = headerProgress
-    XRefreshHeaderBeginBlock = headerBegin
-    XRefreshHeaderEndBlock = headerEnd
+    XRefreshHeaderProgressBlock = headerProgress    ///下拉刷新进度
+    XRefreshHeaderBeginBlock = headerBegin          ///下拉刷新开始
+    XRefreshHeaderEndBlock = headerEnd              ///下拉刷新结束
     
-    XRefreshFooterProgressBlock = footerProgress
-    XRefreshFooterBeginBlock = footerBegin
-    XRefreshFooterEndBlock = footerEnd
-    XRefreshFooterNoMoreBlock = noMore
+    XRefreshFooterProgressBlock = footerProgress    ///上拉加载进度
+    XRefreshFooterBeginBlock = footerBegin          ///上拉加载开始
+    XRefreshFooterEndBlock = footerEnd              ///上拉加载结束
+    XRefreshFooterNoMoreBlock = noMore              ///数据全部加载完毕
 }
 
 extension UIScrollView
