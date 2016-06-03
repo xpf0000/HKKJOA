@@ -160,7 +160,7 @@ class XHeaderRefreshView: UIView {
         
         if(keyPath == "contentOffset")
         {
-            if(self.state == .WillRefreshing || !XRefreshEnable || self.hidden)
+            if(self.state == .WillRefreshing || !scrollView!.refreshEnable || self.hidden)
             {
                 return
             }
@@ -261,7 +261,7 @@ class XHeaderRefreshView: UIView {
                                 self.scrollView?.footRefresh?.reSet()
                             }
                             
-                            XRefreshEnable = true
+                            self.scrollView!.refreshEnable = true
                             
                         })
                 })
@@ -294,7 +294,7 @@ class XHeaderRefreshView: UIView {
             })
             
         case .Refreshing:
-            XRefreshEnable = false
+            scrollView!.refreshEnable = false
             self.state = .Refreshing
             self.state = state
             
@@ -358,8 +358,6 @@ class XHeaderRefreshView: UIView {
     
     deinit
     {
-        print("XRefresh Header deinit!!!!!!!!")
-        
         self.superview?.removeObserver(self, forKeyPath: "contentOffset")
         
         self.scrollView = nil

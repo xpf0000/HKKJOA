@@ -27,6 +27,7 @@ private var footerV: XFooterRefreshView?
 
 private var RefreshHeaderViewKey : CChar?
 private var RefreshFooterViewKey : CChar?
+private var XRefreshEnableKey : CChar?
 
 var XRefreshHeaderProgressBlock:RefreshProgressBlock?
 var XRefreshHeaderBeginBlock:RefreshViewBlock?
@@ -37,23 +38,37 @@ var XRefreshFooterBeginBlock:RefreshViewBlock?
 var XRefreshFooterEndBlock:RefreshViewBlock?
 var XRefreshFooterNoMoreBlock:RefreshViewBlock?
 
-var XRefreshEnable = true
-
 func XRefreshConfig(headerProgress:RefreshProgressBlock?,headerBegin:RefreshViewBlock?,headerEnd:RefreshViewBlock?,footerProgress:RefreshProgressBlock?,footerBegin:RefreshViewBlock?,footerEnd:RefreshViewBlock?,noMore:RefreshViewBlock?)
 {
-    XRefreshHeaderProgressBlock = headerProgress    ///下拉刷新进度
-    XRefreshHeaderBeginBlock = headerBegin          ///下拉刷新开始
-    XRefreshHeaderEndBlock = headerEnd              ///下拉刷新结束
+    XRefreshHeaderProgressBlock = headerProgress
+    XRefreshHeaderBeginBlock = headerBegin
+    XRefreshHeaderEndBlock = headerEnd
     
-    XRefreshFooterProgressBlock = footerProgress    ///上拉加载进度
-    XRefreshFooterBeginBlock = footerBegin          ///上拉加载开始
-    XRefreshFooterEndBlock = footerEnd              ///上拉加载结束
-    XRefreshFooterNoMoreBlock = noMore              ///数据全部加载完毕
+    XRefreshFooterProgressBlock = footerProgress
+    XRefreshFooterBeginBlock = footerBegin
+    XRefreshFooterEndBlock = footerEnd
+    XRefreshFooterNoMoreBlock = noMore
 }
 
 extension UIScrollView
 {
+    var refreshEnable:Bool
+    {
+        get
+        {
+            let b = (objc_getAssociatedObject(self, &XRefreshEnableKey) as? Bool) ?? true
+            return b
+        }
+        set(newValue) {
+            self.willChangeValueForKey("XRefreshEnableKey")
+            objc_setAssociatedObject(self, &XRefreshEnableKey, newValue,
+                                     .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            self.didChangeValueForKey("XRefreshEnableKey")
+            
+        }
 
+    }
+    
     func hideHeadRefresh()
     {
         self.headRefresh?.hide()
@@ -92,7 +107,7 @@ extension UIScrollView
         set(newValue) {
             self.willChangeValueForKey("RefreshHeaderViewKey")
             objc_setAssociatedObject(self, &RefreshHeaderViewKey, newValue,
-            .OBJC_ASSOCIATION_ASSIGN)
+                                     .OBJC_ASSOCIATION_ASSIGN)
             self.didChangeValueForKey("RefreshHeaderViewKey")
             
         }
@@ -107,7 +122,7 @@ extension UIScrollView
         set(newValue) {
             self.willChangeValueForKey("RefreshFooterViewKey")
             objc_setAssociatedObject(self, &RefreshFooterViewKey, newValue,
-                .OBJC_ASSOCIATION_ASSIGN)
+                                     .OBJC_ASSOCIATION_ASSIGN)
             self.didChangeValueForKey("RefreshFooterViewKey")
             
         }

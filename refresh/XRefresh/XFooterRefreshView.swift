@@ -122,7 +122,7 @@ class XFooterRefreshView: UIView {
         if(keyPath == "contentOffset")
         {
             
-            if(self.state == .End || !XRefreshEnable || self.hidden)
+            if(self.state == .End || !scrollView!.refreshEnable || self.hidden)
             {
                 return
             }
@@ -226,7 +226,7 @@ class XFooterRefreshView: UIView {
                     self.state = .Pulling
                     self.setState(.Normal)
                     
-                    XRefreshEnable = true
+                    self.scrollView!.refreshEnable = true
                     
                 })
                 
@@ -243,7 +243,7 @@ class XFooterRefreshView: UIView {
             
         case .Refreshing:
             
-            XRefreshEnable = false
+            scrollView!.refreshEnable = false
             
             self.activity.hidden = false
             self.activity.alpha=1.0
@@ -282,6 +282,8 @@ class XFooterRefreshView: UIView {
             self.activity.hidden = true
             self.scrollView!.contentInset.bottom=0
             XRefreshFooterNoMoreBlock?(self)
+            
+            scrollView!.refreshEnable = true
         }
         self.state=state
         
@@ -322,8 +324,6 @@ class XFooterRefreshView: UIView {
     
     deinit
     {
-        print("XRefresh Footer deinit!!!!!!!!")
-        
         self.superview?.removeObserver(self, forKeyPath: "contentSize")
         self.superview?.removeObserver(self, forKeyPath: "contentOffset")
         
