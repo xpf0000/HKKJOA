@@ -41,7 +41,6 @@ class VC1: UIViewController,UITableViewDelegate,UITableViewDataSource {
         table.tableFooterView = view
         table.tableHeaderView = view
         
-        
         self.table.setHeaderRefresh {[weak self]() -> Void in
             
             if self == nil {return}
