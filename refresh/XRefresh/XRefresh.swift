@@ -53,7 +53,7 @@ func XRefreshConfig(headerProgress:RefreshProgressBlock?,headerBegin:RefreshView
 extension UIScrollView
 {
     var refreshEnable:Bool
-    {
+        {
         get
         {
             let b = (objc_getAssociatedObject(self, &XRefreshEnableKey) as? Bool) ?? true
@@ -66,7 +66,7 @@ extension UIScrollView
             self.didChangeValueForKey("XRefreshEnableKey")
             
         }
-
+        
     }
     
     func hideHeadRefresh()
@@ -159,7 +159,7 @@ extension UIScrollView
     func LoadedAll()
     {
         self.footRefresh?.end = true
-        self.footRefresh?.setState(.End)
+        self.footRefresh?.state = .End
     }
     
 }

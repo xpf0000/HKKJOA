@@ -22,17 +22,10 @@ class VC1: UIViewController,UITableViewDelegate,UITableViewDataSource {
         self.automaticallyAdjustsScrollViewInsets = false
         
         table = UITableView()
-        table.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height-120)
+        table.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height-64)
         table.delegate = self
         table.dataSource = self
         self.view.addSubview(table)
-        
-        table.snp_makeConstraints { (make) in
-            make.top.equalTo(0.0)
-            make.bottom.equalTo(0.0)
-            make.trailing.equalTo(0.0)
-            make.leading.equalTo(0.0)
-        }
         
         table.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
@@ -47,16 +40,18 @@ class VC1: UIViewController,UITableViewDelegate,UITableViewDataSource {
             
             print("刷新开始!!!!!!!")
 
-            self?.performSelector(#selector(VC1.refresh), withObject: nil, afterDelay: 2.0)
+            self?.performSelector(#selector(VC1.refresh), withObject: nil, afterDelay: 1.5)
         }
         
         self.table.setFooterRefresh { [weak self]() -> Void in
             
-          self?.performSelector(#selector(VC1.refresh), withObject: nil, afterDelay: 4.0)
+          self?.performSelector(#selector(VC1.refresh), withObject: nil, afterDelay: 1.5)
             
         }
         
         table.LoadedAll()
+        
+        table.beginHeaderRefresh()
         
     }
     

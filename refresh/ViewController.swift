@@ -24,7 +24,7 @@ class ViewController: UIViewController {
 
         let button = UIButton(type: .Custom)
         button.frame = CGRectMake(100, 100, 120, 60)
-        button.setTitle("button", forState: .Normal)
+        button.setTitle("UITableView", forState: .Normal)
         button.setTitleColor(UIColor.redColor(), forState: .Normal)
         button.addTarget(self, action: #selector(ViewController.click), forControlEvents: .TouchUpInside)
         

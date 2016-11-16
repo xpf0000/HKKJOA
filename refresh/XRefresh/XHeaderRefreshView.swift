@@ -11,10 +11,112 @@ import UIKit
 class XHeaderRefreshView: UIView {
     
     weak var scrollView:UIScrollView?
+        {
+        didSet
+        {
+            scrollView?.bounces = true
+            scrollView?.alwaysBounceVertical = true
+        }
+    }
+    
+    var state:XRefreshState = .Normal
+        {
+        didSet
+        {
+            if oldValue == state {return}
+            
+            switch state
+            {
+            case .Normal:
+                
+                if(oldValue == .Refreshing)
+                {
+                    // 保存刷新时间
+                    self.refrushTime = NSDate()
+                    self.downIcon.transform = CGAffineTransformIdentity;
+                    
+                    UIView.animateWithDuration(0.4, animations: { () -> Void in
+                        
+                        self.activity.alpha=0.0
+                        self.scrollView?.contentInset.top = 0
+                        
+                        }, completion: { (finish) -> Void in
+                            
+                            self.activity.hidden = true
+                            self.activity.alpha=1.0
+                            self.activity.stopAnimating()
+                            
+                            if(self.scrollView?.footRefresh?.end != true)
+                            {
+                                self.scrollView?.footRefresh?.reSet()
+                            }
+                            
+                            self.scrollView?.refreshEnable = true
+                            
+                            XRefreshHeaderEndBlock?(self)
+                            
+                    })
+                    
+                }
+                else
+                {
+                    self.downIcon.hidden = false
+                    self.activity.stopAnimating()
+                    self.activity.hidden = true
+                    
+                    UIView.animateWithDuration(0.25, animations: { () -> Void in
+                        self.downIcon.transform=CGAffineTransformMakeRotation(CGFloat(M_PI)*CGFloat(2.0))
+                        
+                        }, completion: { (finish) -> Void in
+                            
+                    })
+                }
+                
+                
+            case .Pulling:
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    
+                    self.downIcon.transform=CGAffineTransformMakeRotation(CGFloat(M_PI)*CGFloat(1.0))
+                    
+                    }, completion: { (finish) -> Void in
+                        
+                })
+                
+            case .Refreshing:
+                scrollView?.refreshEnable = false
+
+                self.downIcon.hidden = true
+                self.activity.hidden = false
+                self.activity.startAnimating()
+                
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    
+                    self.scrollView?.contentInset.top=self.height
+                    self.scrollView?.setContentOffset(CGPointMake(0, -self.height), animated: false)
+                    
+                    }, completion: { (finish) -> Void in
+                        
+                        self.scrollView?.footRefresh?.end=false
+                        XRefreshHeaderBeginBlock?(self)
+                        self.block?()
+                        
+                })
+                
+            case .WillRefreshing:
+                ""
+            default:
+                ""
+            }
+            
+            setStateText()
+            
+        }
+    }
+    
     var refrushTime:NSDate=NSDate()
     var height:CGFloat = 80.0
     var block:RefreshBlock?
-    var state:XRefreshState = .Normal
+    
     var loaded = false
     
     let downIcon:UIImageView=UIImageView()
@@ -176,16 +278,16 @@ class XHeaderRefreshView: UIView {
             {
                 if (self.state == .Normal && y <= -height)
                 {
-                    self.setState(.Pulling)
+                    self.state = .Pulling
                 }
                 else if (self.state == .Pulling && y > -height)
                 {
-                    self.setState(.Normal)
+                    self.state = .Normal
                 }
             }
             else if(self.state == .Pulling)
             {
-                self.setState(.Refreshing)
+                self.state = .Refreshing
             }
         }
     }
@@ -195,7 +297,7 @@ class XHeaderRefreshView: UIView {
         XRefreshHeaderProgressBlock?(self,1.0)
         if(self.window != nil)
         {
-            self.setState(.Refreshing)
+            self.state = .Refreshing
         }
         else
         {
@@ -211,118 +313,10 @@ class XHeaderRefreshView: UIView {
         
         dispatch_after(popTime, dispatch_get_main_queue(), { () -> Void in
             
-            self.setState(.Normal)
+            self.state = .Normal
             
         })
         
-    }
-    
-    func setState(state:XRefreshState)
-    {
-        if self.state ==  state
-        {
-            return
-        }
-        
-        let oldState = self.state
-        
-        switch state
-        {
-        case .Normal:
-            
-            if(oldState == .Refreshing)
-            {
-                // 保存刷新时间
-                self.refrushTime = NSDate()
-                self.downIcon.transform = CGAffineTransformIdentity;
-                
-                UIView.animateWithDuration(0.4, animations: { () -> Void in
-                    
-                    self.activity.alpha=0.0
-                    self.scrollView?.contentInset.top = 0
-                    
-                    }, completion: { (finish) -> Void in
-                        
-                        self.activity.hidden = true
-                        self.activity.alpha=1.0
-                        self.activity.stopAnimating()
-                        self.state = state
-                        
-                        let delayInSeconds:Double=0.25
-                        let popTime:dispatch_time_t=dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
-                        
-                        dispatch_after(popTime, dispatch_get_main_queue(), { () -> Void in
-                            XRefreshHeaderEndBlock?(self)
-                            self.state = .Pulling
-                            self.setState(.Normal)
-                            
-                            if(self.scrollView?.footRefresh?.end != true)
-                            {
-                                self.scrollView?.footRefresh?.reSet()
-                            }
-                            
-                            self.scrollView!.refreshEnable = true
-                            
-                        })
-                })
-                
-            }
-            else
-            {
-                self.state = state
-                self.downIcon.hidden = false
-                self.activity.stopAnimating()
-                self.activity.hidden = true
-                
-                UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    self.downIcon.transform=CGAffineTransformMakeRotation(CGFloat(M_PI)*CGFloat(2.0))
-                    
-                    }, completion: { (finish) -> Void in
-                        
-                })
-            }
-            
-            
-        case .Pulling:
-            self.state = state
-            UIView.animateWithDuration(0.25, animations: { () -> Void in
-                
-                self.downIcon.transform=CGAffineTransformMakeRotation(CGFloat(M_PI)*CGFloat(1.0))
-                
-                }, completion: { (finish) -> Void in
-                    
-            })
-            
-        case .Refreshing:
-            scrollView!.refreshEnable = false
-            self.state = .Refreshing
-            self.state = state
-            
-            self.downIcon.hidden = true
-            self.activity.hidden = false
-            self.activity.startAnimating()
-            
-            UIView.animateWithDuration(0.25, animations: { () -> Void in
-                
-                self.scrollView!.contentInset.top=self.height
-                self.scrollView!.setContentOffset(CGPointMake(0, -self.height), animated: false)
-                
-                }, completion: { (finish) -> Void in
-                    
-                    self.scrollView?.footRefresh?.end=false
-                    XRefreshHeaderBeginBlock?(self)
-                    self.block?()
-                    
-            })
-            
-        case .WillRefreshing:
-            ""
-        default:
-            ""
-        }
-        
-        
-        self.setStateText()
     }
     
     func setStateText()
@@ -351,7 +345,7 @@ class XHeaderRefreshView: UIView {
     override func drawRect(rect: CGRect) {
         
         if (self.state == .WillRefreshing) {
-            self.setState(.Refreshing)
+            self.state = .Refreshing
         }
     }
     

@@ -33,11 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 view.addSubview(img)
                 img.tag = 20
                 
-                img.snp_makeConstraints(closure: { (make) in
-                    make.center.equalTo(view)
-                    make.width.equalTo(view.snp_height)
-                    make.height.equalTo(img.snp_width)
-                })
+                img.frame = CGRectMake(0, 0, view.frame.size.height, view.frame.size.height)
+                
+                img.center = CGPointMake(view.frame.size.width/2.0, view.frame.size.height/2.0)
                 
                 g.ind = n-1
                 g.play()

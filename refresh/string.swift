@@ -360,9 +360,9 @@ extension String{
     
     var View:UIView
     {
-        let arr:Array = NSBundle.mainBundle().loadNibNamed(self, owner: nil, options: nil)
+        let arr:Array = NSBundle.mainBundle().loadNibNamed(self, owner: nil, options: nil)!
         
-        return arr[0] as! UIView
+        return arr[0] as! UIView 
     }
     
     func postNotice()
