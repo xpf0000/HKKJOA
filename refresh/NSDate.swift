@@ -12,30 +12,36 @@ extension NSDate
     class func now()->NSDate
     {
         let date:NSDate=NSDate()
-        let zone:NSTimeZone=NSTimeZone.systemTimeZone()
-        let interval:NSTimeInterval=NSTimeInterval(zone.secondsFromGMTForDate(date))
-        return date.dateByAddingTimeInterval(interval)
+        let zone:NSTimeZone=NSTimeZone.system as NSTimeZone
+        let interval:TimeInterval=TimeInterval(zone.secondsFromGMT(for: date as Date))
+        return date.addingTimeInterval(interval)
     }
     
     func formart()->NSDate
     {
-        let zone:NSTimeZone=NSTimeZone.systemTimeZone()
-        let interval:NSTimeInterval=NSTimeInterval(zone.secondsFromGMTForDate(self))
-        return self.dateByAddingTimeInterval(interval)
+        let zone:NSTimeZone=NSTimeZone.system as NSTimeZone
+        let interval:TimeInterval=TimeInterval(zone.secondsFromGMT(for: self as Date))
+        return self.addingTimeInterval(interval)
     }
     
-    var dateComponent:NSDateComponents
+    var dateComponent:DateComponents
     {
-        let calendar=NSCalendar.currentCalendar()
-        let unitFlags: NSCalendarUnit=[NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Weekday, NSCalendarUnit.Day]
+        let calendar=NSCalendar.current
+
+        let unitFlags = Set<Calendar.Component>([.year, .month, .weekday, .day])
         
-        return calendar.components(unitFlags, fromDate: self)
+        let result = calendar.dateComponents(unitFlags, from: self as Date)
+        
+        return result
     }
     
     var dayCount:Int
         {
-            let month=self.dateComponent.month
-            let year=self.dateComponent.year
+            let month=self.dateComponent.month ?? 0
+            let year=self.dateComponent.year ?? 0
+        
+        if month * year == 0 {return 0}
+        
             switch (month) {
             case 1:
                 return 31
